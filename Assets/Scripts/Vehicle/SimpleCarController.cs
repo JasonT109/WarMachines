@@ -2,79 +2,96 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Rewired;
 
-[System.Serializable]
-public class AxleInfo
+namespace WarMachines
 {
-    public WheelCollider leftWheel;
-    public WheelCollider rightWheel;
-    public Transform visualWheelLeft;
-    public Transform visualWheelRight;
-    public bool motor;
-    public bool steering;
-    public bool steeringInverted;
-    public float wheelSize = 1;
-}
-
-public class SimpleCarController : MonoBehaviour
-{
-    public List<AxleInfo> axleInfos;
-    public float maxMotorTorque;
-    public float maxSteeringAngle;
-    public Slider TorqueSlider;
-
-    // finds the corresponding visual wheel
-    // correctly applies the transform
-    public void ApplyLocalPositionToVisuals(WheelCollider collider, Transform wheelMesh)
+    [System.Serializable]
+    public class AxleInfo
     {
-        Vector3 position;
-        Quaternion rotation;
-        collider.GetWorldPose(out position, out rotation);
-
-        wheelMesh.position = position;
-        wheelMesh.rotation = rotation;
+        public WheelCollider leftWheel;
+        public WheelCollider rightWheel;
+        public Transform visualWheelLeft;
+        public Transform visualWheelRight;
+        public bool motor;
+        public bool steering;
+        public bool steeringInverted;
+        public float wheelSize = 1;
     }
 
-    public void Start()
+    public class SimpleCarController : MonoBehaviour
     {
-        foreach (AxleInfo axleInfo in axleInfos)
+        public int playerId = 0;
+
+        public List<AxleInfo> axleInfos;
+        public float maxMotorTorque;
+        public float maxSteeringAngle;
+        public Slider TorqueSlider;
+        public Vector3 COMOffset = new Vector3(0,-0.05f, 0);
+
+        private Player player;
+        private Rigidbody rb;
+
+        // finds the corresponding visual wheel
+        // correctly applies the transform
+        public void ApplyLocalPositionToVisuals(WheelCollider collider, Transform wheelMesh)
         {
-            //set wheel size
-            axleInfo.leftWheel.radius = axleInfo.wheelSize * 0.1f;
-            axleInfo.visualWheelLeft.transform.localScale = new Vector3(axleInfo.wheelSize, axleInfo.wheelSize, axleInfo.wheelSize);
-            axleInfo.rightWheel.radius = axleInfo.wheelSize * 0.1f;
-            axleInfo.visualWheelRight.transform.localScale = new Vector3(axleInfo.wheelSize, axleInfo.wheelSize, axleInfo.wheelSize);
+            Vector3 position;
+            Quaternion rotation;
+            collider.GetWorldPose(out position, out rotation);
+
+            wheelMesh.position = position;
+            wheelMesh.rotation = rotation;
         }
 
-        TorqueSlider.minValue = -maxMotorTorque;
-        TorqueSlider.maxValue = maxMotorTorque;
-    }
-
-    public void FixedUpdate()
-    {
-        float motor = maxMotorTorque * Input.GetAxisRaw("Throttle");
-        float steering = maxSteeringAngle * Input.GetAxisRaw("Horizontal");
-
-        TorqueSlider.value = motor;
-
-        foreach (AxleInfo axleInfo in axleInfos)
+        public void Awake()
         {
-            if (axleInfo.steering)
-            {
-                float steerValue = steering;
-                if (axleInfo.steeringInverted)
-                    steerValue = -steering;
+            player = ReInput.players.GetPlayer(playerId);
+        }
 
-                axleInfo.leftWheel.steerAngle = steerValue;
-                axleInfo.rightWheel.steerAngle = steerValue;
-            }
-            if (axleInfo.motor)
+        public void Start()
+        {
+            foreach (AxleInfo axleInfo in axleInfos)
             {
-                axleInfo.leftWheel.motorTorque = motor;
-                axleInfo.rightWheel.motorTorque = motor;
+                //set wheel size
+                axleInfo.leftWheel.radius = axleInfo.wheelSize * 0.1f;
+                axleInfo.visualWheelLeft.transform.localScale = new Vector3(axleInfo.wheelSize, axleInfo.wheelSize, axleInfo.wheelSize);
+                axleInfo.rightWheel.radius = axleInfo.wheelSize * 0.1f;
+                axleInfo.visualWheelRight.transform.localScale = new Vector3(axleInfo.wheelSize, axleInfo.wheelSize, axleInfo.wheelSize);
             }
-            ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visualWheelLeft);
-            ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visualWheelRight);
+            rb = GetComponent<Rigidbody>();
+            rb.centerOfMass = COMOffset;
+            TorqueSlider.minValue = -maxMotorTorque;
+            TorqueSlider.maxValue = maxMotorTorque;
+        }
+
+        public void FixedUpdate()
+        {
+            float motor = maxMotorTorque * player.GetAxis("Throttle");
+            float steering = maxSteeringAngle * player.GetAxis("Horizontal");
+
+            TorqueSlider.value = motor;
+
+            foreach (AxleInfo axleInfo in axleInfos)
+            {
+                if (axleInfo.steering)
+                {
+                    float steerValue = steering;
+                    if (axleInfo.steeringInverted)
+                        steerValue = -steering;
+
+                    axleInfo.leftWheel.steerAngle = steerValue;
+                    axleInfo.rightWheel.steerAngle = steerValue;
+                }
+                if (axleInfo.motor)
+                {
+                    axleInfo.leftWheel.motorTorque = motor;
+                    axleInfo.rightWheel.motorTorque = motor;
+                }
+                ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visualWheelLeft);
+                ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visualWheelRight);
+            }
         }
     }
 }
+
