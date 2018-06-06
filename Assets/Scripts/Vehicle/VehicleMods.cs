@@ -4,78 +4,157 @@ using UnityEngine;
 
 namespace WarMachines
 {
-    [System.Serializable]
-    public class VMods
-    {
-        public enum Chassis
-        {
-            ChassisMk1,
-            ChassisMk2
-        }
-
-        public enum Battery
-        {
-            None,
-            BatteryMk1
-        }
-
-        public enum Motor
-        {
-            None,
-            MotorMk1
-        }
-
-        public enum Wheel
-        {
-            WheelMk1
-        }
-
-        public enum ArmorFront
-        {
-            None,
-            FrontArmorMk1
-        }
-
-        public enum ArmorBack
-        {
-            None,
-            BackArmorMk1
-        }
-
-        public enum ArmorSide
-        {
-            None,
-            SideArmorMk1
-        }
-
-        public enum ArmorTop
-        {
-            None,
-            TopArmorMk1
-        }
-    }
-
     public class VehicleMods : MonoBehaviour
     {
-        public VMods.Chassis Chassis = new VMods.Chassis();
-        public VMods.Battery Battery = new VMods.Battery();
-        public VMods.Motor FrontMotor = new VMods.Motor();
-        public VMods.Motor BackMotor = new VMods.Motor();
-        public VMods.Wheel FrontWheels = new VMods.Wheel();
-        public VMods.Wheel BackWheels = new VMods.Wheel();
-        public VMods.ArmorFront ArmorFront = new VMods.ArmorFront();
-        public VMods.ArmorBack ArmorBack = new VMods.ArmorBack();
-        public VMods.ArmorSide ArmorSide = new VMods.ArmorSide();
-        public VMods.ArmorTop ArmorTop = new VMods.ArmorTop();
+        public Transform ChassisSlot;
+        public Transform FrontMotorSlot;
+        public Transform RearMotorSlot;
+        public Transform FLWheelSlot;
+        public Transform FRWheelSlot;
+        public Transform BLWheelSlot;
+        public Transform BRWheelSlot;
+        public Transform BatterySlot;
+        public Transform FrontArmorSlot;
+        public Transform BackArmorSlot;
+        public Transform SideArmorSlot;
+        public Transform TopArmorSlot;
+        public Transform BottomArmorSlot;
+        public Transform FrontWeaponSlot;
+        public Transform RearWeaponSlot;
+        public Transform TopWeaponSlot;
+
+        private PartsDictionary.Chassis mChassis = new PartsDictionary.Chassis();
+        public PartsDictionary.Chassis Chassis
+        {
+            get { return mChassis; }
+            set
+            {
+                mChassis = value;
+                ApplyMods(ChassisSlot);
+            }
+        }
+        private PartsDictionary.Battery mBattery = new PartsDictionary.Battery();
+        public PartsDictionary.Battery Battery
+        {
+            get { return mBattery; }
+            set
+            {
+                mBattery = value;
+                ApplyMods(BatterySlot);
+            }
+        }
+        private PartsDictionary.Motor mFrontMotor = new PartsDictionary.Motor();
+        public PartsDictionary.Motor FrontMotor
+        {
+            get { return mFrontMotor; }
+            set
+            {
+                mFrontMotor = value;
+                ApplyMods(FrontMotorSlot);
+            }
+        }
+        private PartsDictionary.Motor mBackMotor = new PartsDictionary.Motor();
+        public PartsDictionary.Motor BackMotor
+        {
+            get { return mBackMotor; }
+            set
+            {
+                mBackMotor = value;
+                ApplyMods(RearMotorSlot);
+            }
+        }
+        private PartsDictionary.Wheel mFrontWheels = new PartsDictionary.Wheel();
+        public PartsDictionary.Wheel FrontWheels
+        {
+            get { return mFrontWheels; }
+            set
+            {
+                mFrontWheels = value;
+                ApplyMods(FLWheelSlot);
+            }
+        }
+        private PartsDictionary.Wheel mBackWheels = new PartsDictionary.Wheel();
+        public PartsDictionary.Wheel BackWheels
+        {
+            get { return mBackWheels; }
+            set
+            {
+                mBackWheels = value;
+                ApplyMods(BLWheelSlot);
+            }
+        }
+        private PartsDictionary.ArmorFront mArmorFront = new PartsDictionary.ArmorFront();
+        public PartsDictionary.ArmorFront ArmorFront
+        {
+            get { return mArmorFront; }
+            set
+            {
+                mArmorFront = value;
+                ApplyMods(FrontArmorSlot);
+            }
+        }
+        private PartsDictionary.ArmorBack mArmorBack = new PartsDictionary.ArmorBack();
+        public PartsDictionary.ArmorBack ArmorBack
+        {
+            get { return mArmorBack; }
+            set
+            {
+                mArmorBack = value;
+                ApplyMods(BackArmorSlot);
+            }
+        }
+        private PartsDictionary.ArmorSide mArmorSide = new PartsDictionary.ArmorSide();
+        public PartsDictionary.ArmorSide ArmorSide
+        {
+            get { return mArmorSide; }
+            set
+            {
+                mArmorSide = value;
+                ApplyMods(SideArmorSlot);
+            }
+        }
+        private PartsDictionary.ArmorTop mArmorTop = new PartsDictionary.ArmorTop();
+        public PartsDictionary.ArmorTop ArmorTop
+        {
+            get { return mArmorTop; }
+            set
+            {
+                mArmorTop = value;
+                ApplyMods(TopArmorSlot);
+            }
+        }
+        private PartsDictionary.ArmorBottom mArmorBottom = new PartsDictionary.ArmorBottom();
+        public PartsDictionary.ArmorBottom ArmorBottom
+        {
+            get { return mArmorBottom; }
+            set
+            {
+                mArmorBottom = value;
+                ApplyMods(BottomArmorSlot);
+            }
+        }
+        //private readonly string path = "Assets/Resources/";
+
+        public void ApplyMods(Transform ModSlot)
+        {
+            //update the visual meshes and stats for this vehicle
+
+            //get the data for this mod
+                //visual mesh
+                //slot
+                //stats
+        }
 
         // Use this for initialization
-        void Start () {
+        void Start ()
+        {
 		
 	    }
 	
 	    // Update is called once per frame
-	    void Update () {
-		
+	    void Update ()
+        {
+		    
 	    }
     }
 }
