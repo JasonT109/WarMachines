@@ -26,7 +26,6 @@ namespace WarMachines
         public List<AxleInfo> axleInfos;
         public float maxMotorTorque;
         public float maxSteeringAngle;
-        public Slider TorqueSlider;
         public Vector3 COMOffset = new Vector3(0,-0.05f, 0);
 
         private Player player;
@@ -61,16 +60,12 @@ namespace WarMachines
             }
             rb = GetComponent<Rigidbody>();
             rb.centerOfMass = COMOffset;
-            TorqueSlider.minValue = -maxMotorTorque;
-            TorqueSlider.maxValue = maxMotorTorque;
         }
 
         public void FixedUpdate()
         {
             float motor = maxMotorTorque * player.GetAxis("Throttle");
             float steering = maxSteeringAngle * player.GetAxis("Horizontal");
-
-            TorqueSlider.value = motor;
 
             foreach (AxleInfo axleInfo in axleInfos)
             {
