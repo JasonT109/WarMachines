@@ -14,14 +14,11 @@ namespace WarMachines
         public Transform BLWheelSlot;
         public Transform BRWheelSlot;
         public Transform BatterySlot;
-        public Transform FrontArmorSlot;
-        public Transform BackArmorSlot;
-        public Transform SideArmorSlot;
-        public Transform TopArmorSlot;
-        public Transform BottomArmorSlot;
+        public Transform ArmorSlot;
         public Transform FrontWeaponSlot;
         public Transform RearWeaponSlot;
         public Transform TopWeaponSlot;
+        //private readonly string path = "Assets/Resources/";
 
         private PartsDictionary.Chassis mChassis = new PartsDictionary.Chassis();
         public PartsDictionary.Chassis Chassis
@@ -83,57 +80,16 @@ namespace WarMachines
                 ApplyMods(BLWheelSlot);
             }
         }
-        private PartsDictionary.ArmorFront mArmorFront = new PartsDictionary.ArmorFront();
-        public PartsDictionary.ArmorFront ArmorFront
+        private PartsDictionary.Armor mArmor = new PartsDictionary.Armor();
+        public PartsDictionary.Armor Armor
         {
-            get { return mArmorFront; }
+            get { return mArmor; }
             set
             {
-                mArmorFront = value;
-                ApplyMods(FrontArmorSlot);
+                mArmor = value;
+                ApplyMods(ArmorSlot);
             }
         }
-        private PartsDictionary.ArmorBack mArmorBack = new PartsDictionary.ArmorBack();
-        public PartsDictionary.ArmorBack ArmorBack
-        {
-            get { return mArmorBack; }
-            set
-            {
-                mArmorBack = value;
-                ApplyMods(BackArmorSlot);
-            }
-        }
-        private PartsDictionary.ArmorSide mArmorSide = new PartsDictionary.ArmorSide();
-        public PartsDictionary.ArmorSide ArmorSide
-        {
-            get { return mArmorSide; }
-            set
-            {
-                mArmorSide = value;
-                ApplyMods(SideArmorSlot);
-            }
-        }
-        private PartsDictionary.ArmorTop mArmorTop = new PartsDictionary.ArmorTop();
-        public PartsDictionary.ArmorTop ArmorTop
-        {
-            get { return mArmorTop; }
-            set
-            {
-                mArmorTop = value;
-                ApplyMods(TopArmorSlot);
-            }
-        }
-        private PartsDictionary.ArmorBottom mArmorBottom = new PartsDictionary.ArmorBottom();
-        public PartsDictionary.ArmorBottom ArmorBottom
-        {
-            get { return mArmorBottom; }
-            set
-            {
-                mArmorBottom = value;
-                ApplyMods(BottomArmorSlot);
-            }
-        }
-        //private readonly string path = "Assets/Resources/";
 
         public void ApplyMods(Transform ModSlot)
         {

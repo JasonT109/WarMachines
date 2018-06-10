@@ -30,34 +30,10 @@ namespace WarMachines
             WheelMk1
         }
 
-        public enum ArmorFront
+        public enum Armor
         {
             None,
-            FrontArmorMk1
-        }
-
-        public enum ArmorBack
-        {
-            None,
-            BackArmorMk1
-        }
-
-        public enum ArmorSide
-        {
-            None,
-            SideArmorMk1
-        }
-
-        public enum ArmorTop
-        {
-            None,
-            TopArmorMk1
-        }
-
-        public enum ArmorBottom
-        {
-            None,
-            BottomArmorMk1
+            ArmorMk1
         }
 
         /** Part types. */
@@ -67,11 +43,7 @@ namespace WarMachines
             Battery,
             Motor,
             Wheel,
-            ArmorFront,
-            ArmorBack,
-            ArmorSides,
-            ArmorTop,
-            ArmorBottom,
+            Armor,
             Weapon
         }
 
@@ -82,11 +54,7 @@ namespace WarMachines
             BatterySlot,
             MotorSlot,
             WheelSlot,
-            ArmorFrontSlot,
-            ArmorBackSlot,
-            ArmorSidesSlot,
-            ArmorTopSlot,
-            ArmorBottomSlot,
+            ArmorSlot,
             WeaponFrontSlot,
             WeaponBackSlot,
             WeaponTopSlot
@@ -133,27 +101,39 @@ namespace WarMachines
             "batterymk1",
             "motormk1",
             "wheelmk1",
-            "frontarmormk1",
-            "backarmormk1",
-            "sidearmormk1",
-            "toparmormk1",
-            "bottomarmormk1",
+            "armormk1",
+            "armormk2",
+            "armormk3",
+            "armormk4",
+            "armormk5",
         };
 
         /** Details of each vehicle part. */
         private static readonly Dictionary<string, PartInfo> PartData = new Dictionary<string, PartInfo>
         {
-            {"chassismk1", new PartInfo {type = PartType.Chassis, slot = Slot.ChassisSlot, description = "A simple yet robust entry level platform.", weight = 60} },
-            {"chassismk2", new PartInfo {type = PartType.Chassis, slot = Slot.ChassisSlot, description = "Low ride clearance for stability, protection and style.", weight = 60} },
-            {"batterymk1", new PartInfo {type = PartType.Battery, slot = Slot.BatterySlot, description = "Enough juice to get you going.", weight = 15} },
-            {"motormk1", new PartInfo {type = PartType.Motor, slot = Slot.MotorSlot, description = "Now we're torquing!", weight = 8, torque = 15, wheelIndependant = false} },
-            {"wheelmk1", new PartInfo {type = PartType.Wheel, slot = Slot.WheelSlot, description = "Squeely good wheels.", weight = 5} },
-            {"frontarmormk1", new PartInfo {type = PartType.ArmorFront, slot = Slot.ArmorFrontSlot, description = "Don't hurt me!", weight = 5, strength = 5} },
-            {"backarmormk1", new PartInfo {type = PartType.ArmorBack, slot = Slot.ArmorBackSlot, description = "Don't hurt me!", weight = 5, strength = 5} },
-            {"sidearmormk1", new PartInfo {type = PartType.ArmorSides, slot = Slot.ArmorSidesSlot, description = "Don't hurt me!", weight = 5, strength = 5} },
-            {"toparmormk1", new PartInfo {type = PartType.ArmorTop, slot = Slot.ArmorTopSlot, description = "Don't hurt me!", weight = 5, strength = 5} },
-            {"bottomarmormk1", new PartInfo {type = PartType.ArmorBottom, slot = Slot.ArmorBottomSlot, description = "Don't hurt me!", weight = 5, strength = 5} },
+            {"chassismk1", new PartInfo {type = PartType.Chassis, slot = Slot.ChassisSlot, partName = "Rebo Machines Chassis Mk1", description = "A simple yet robust entry level platform.", weight = 60} },
+            {"chassismk2", new PartInfo {type = PartType.Chassis, slot = Slot.ChassisSlot, partName = "Rebo Machines Chassis Mk2", description = "Low ride clearance for stability, protection and style.", weight = 60} },
+            {"batterymk1", new PartInfo {type = PartType.Battery, slot = Slot.BatterySlot, partName = "Inerton 4000a", description = "Enough juice to get you going.", weight = 15} },
+            {"motormk1", new PartInfo {type = PartType.Motor, slot = Slot.MotorSlot, partName = "Reko P1X", description = "Now we're torquing!", weight = 8, torque = 15, wheelIndependant = false} },
+            {"wheelmk1", new PartInfo {type = PartType.Wheel, slot = Slot.WheelSlot, partName = "RipperTech Screecha", description = "Squeely good wheels.", weight = 5} },
+            {"armormk1", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Powershell BetaBox", description = "Baby, don't hurt me! (no more)", weight = 5, strength = 5} },
+            {"armormk2", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Powershell HalfShell", description = "Hit me one more time!", weight = 5, strength = 5} },
+            {"armormk3", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk3", description = "More boink for your buck!", weight = 5, strength = 5} },
+            {"armormk4", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk4", description = "Thicker, slicker and sicker!", weight = 5, strength = 5} },
+            {"armormk5", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Carbyde Chrysallis 5",description = "Impenetrable. Possibly.", weight = 5, strength = 5} },
         };
+
+        public static List<PartInfo> GetMyPartsOfType(PartType partType, int PlayerID)
+        {
+            //TODO check PlayerID and only return parts belonging to them
+            List<PartInfo> AllMyPartsOfType = new List<PartInfo>();
+            foreach (var p in PartData)
+            {
+                if (p.Value.type == partType)
+                    AllMyPartsOfType.Add(p.Value);
+            }
+            return AllMyPartsOfType;
+        }
     }
 }
 
