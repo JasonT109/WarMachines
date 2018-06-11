@@ -1,5 +1,5 @@
-F:\Work\WarMachines\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
-F:\Work\WarMachines\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+F:\Work\WarMachines\Temp\bin\Debug\Assembly-CSharp.dll
+F:\Work\WarMachines\Temp\bin\Debug\Assembly-CSharp.pdb
 F:\Work\WarMachines\Temp\bin\Debug\Boo.Lang.dll
 F:\Work\WarMachines\Temp\bin\Debug\mscorlib.dll
 F:\Work\WarMachines\Temp\bin\Debug\Rewired_Core.dll
@@ -97,6 +97,7 @@ F:\Work\WarMachines\Temp\bin\Debug\Boo.Lang.Useful.dll
 F:\Work\WarMachines\Temp\bin\Debug\Unity.CecilTools.dll
 F:\Work\WarMachines\Temp\bin\Debug\Unity.Cecil.Pdb.dll
 F:\Work\WarMachines\Temp\bin\Debug\Unity.Cecil.Mdb.dll
+F:\Work\WarMachines\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 F:\Work\WarMachines\Temp\bin\Debug\UnityEngine.xml
 F:\Work\WarMachines\Temp\bin\Debug\UnityEditor.xml
 F:\Work\WarMachines\Temp\bin\Debug\UnityEngine.AIModule.xml
@@ -164,8 +165,8 @@ F:\Work\WarMachines\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
 F:\Work\WarMachines\Temp\bin\Debug\UnityEngine.HoloLens.xml
 F:\Work\WarMachines\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 F:\Work\WarMachines\Temp\bin\Debug\Rewired_Core.xml
-F:\Work\WarMachines\obj\Debug\Assembly-CSharp-firstpass.dll
-F:\Work\WarMachines\obj\Debug\Assembly-CSharp-firstpass.pdb
-F:\Work\WarMachines\obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
-F:\Work\WarMachines\obj\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache
-F:\Work\WarMachines\obj\Debug\Assembly-CSharp-firstpass.csproj.CopyComplete
+F:\Work\WarMachines\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+F:\Work\WarMachines\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+F:\Work\WarMachines\obj\Debug\Assembly-CSharp.csproj.CopyComplete
+F:\Work\WarMachines\obj\Debug\Assembly-CSharp.dll
+F:\Work\WarMachines\obj\Debug\Assembly-CSharp.pdb

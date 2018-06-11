@@ -22,7 +22,7 @@ namespace WarMachines
     public class SimpleCarController : MonoBehaviour
     {
         public int playerId = 0;
-
+        public bool ControlDisabled = false;
         public List<AxleInfo> axleInfos;
         public float maxMotorTorque;
         public float maxSteeringAngle;
@@ -64,27 +64,30 @@ namespace WarMachines
 
         public void FixedUpdate()
         {
-            float motor = maxMotorTorque * player.GetAxis("Throttle");
-            float steering = maxSteeringAngle * player.GetAxis("Horizontal");
-
-            foreach (AxleInfo axleInfo in axleInfos)
+            if (!ControlDisabled)
             {
-                if (axleInfo.steering)
-                {
-                    float steerValue = steering;
-                    if (axleInfo.steeringInverted)
-                        steerValue = -steering;
+                float motor = maxMotorTorque * player.GetAxis("Throttle");
+                float steering = maxSteeringAngle * player.GetAxis("Horizontal");
 
-                    axleInfo.leftWheel.steerAngle = steerValue;
-                    axleInfo.rightWheel.steerAngle = steerValue;
-                }
-                if (axleInfo.motor)
+                foreach (AxleInfo axleInfo in axleInfos)
                 {
-                    axleInfo.leftWheel.motorTorque = motor;
-                    axleInfo.rightWheel.motorTorque = motor;
+                    if (axleInfo.steering)
+                    {
+                        float steerValue = steering;
+                        if (axleInfo.steeringInverted)
+                            steerValue = -steering;
+
+                        axleInfo.leftWheel.steerAngle = steerValue;
+                        axleInfo.rightWheel.steerAngle = steerValue;
+                    }
+                    if (axleInfo.motor)
+                    {
+                        axleInfo.leftWheel.motorTorque = motor;
+                        axleInfo.rightWheel.motorTorque = motor;
+                    }
+                    ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visualWheelLeft);
+                    ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visualWheelRight);
                 }
-                ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visualWheelLeft);
-                ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visualWheelRight);
             }
         }
     }

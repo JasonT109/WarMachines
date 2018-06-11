@@ -35,16 +35,18 @@ namespace WarMachines
             player = ReInput.players.GetPlayer(playerId);
         }
 
-        private void SwitchModule(int Direction)
+        public void SwitchModule(int Direction)
         {
             CurrentCategory += Direction;
             if (CurrentCategory < 1)
                 CurrentCategory = NumCategories;
             if (CurrentCategory > NumCategories)
                 CurrentCategory = 1;
+
+            UpdateUI();
         }
 
-        private void SwitchPart(int Direction)
+        public void SwitchPart(int Direction)
         {
             switch (CurrentCategory)
             {
@@ -84,6 +86,7 @@ namespace WarMachines
                         ArmorCurrentPart = 1;
                     break;
             }
+            UpdateUI();
         }
 
         private void UpdateUI()
@@ -134,25 +137,21 @@ namespace WarMachines
             {
                 //move to previous category
                 SwitchModule(-1);
-                UpdateUI();
             }
             if (player.GetButtonDown("RightTrigger"))
             {
                 //move to next category
                 SwitchModule(1);
-                UpdateUI();
             }
             if (player.GetButtonDown("LeftButton"))
             {
                 //move to previous part
                 SwitchPart(-1);
-                UpdateUI();
             }
             if (player.GetButtonDown("RightButton"))
             {
                 //move to next part
                 SwitchPart(1);
-                UpdateUI();
             }
         }
     }
