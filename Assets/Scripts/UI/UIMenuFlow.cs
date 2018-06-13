@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Rewired;
 
 namespace WarMachines
 {
     public class UIMenuFlow : MonoBehaviour
     {
+        public int playerId = 0;
+        public bool canGoBack = true;
         //Main Panels
         public RectTransform MenuRoot;
         public GameObject MainMenuPanel;
         public GameObject VehicleModPanel;
         public GameObject ArenaSelectPanel;
-        public GameObject SinglePlayerPanel;
+        public GameObject StartMenuPanel;
         public GameObject TwoPlayerPanel;
         public GameObject MultiplayerPanel;
         public GameObject StartGamePanel;
@@ -28,6 +31,7 @@ namespace WarMachines
         private bool RecordThisPanel = true;
         private bool RemoveLastEntry = false;
         private float XPosition = 0;
+        private Player player;
 
         private Dictionary<string, bool> UIVisibility = new Dictionary<string, bool>
         {
@@ -35,7 +39,7 @@ namespace WarMachines
             {"mainmenu", true },
             {"vehiclemodmenu", false },
             {"arenaselectmenu", false },
-            {"singleplayermenu", false },
+            {"startmenu", false },
             {"twoplayermenu", false },
             {"multiplayermenu", false },
             {"startgamemenu", false },
@@ -47,9 +51,6 @@ namespace WarMachines
         public void SwitchPanel(string newPanel)
         {
             bool outTest;
-            //if (UIVisibility.TryGetValue(newPanel, out outTest))
-            //return;
-
             List<string> list = new List<string>(UIVisibility.Keys);
 
             //set all values to false
@@ -61,35 +62,18 @@ namespace WarMachines
                     if (PreviousMenu.Count > 0)
                     {
                         if (PreviousMenu[PreviousMenu.Count - 1] != p)
-                        {
                             PreviousMenu.Add(p);
-                            Debug.Log("Adding " + PreviousMenu.Count + " " + p);
-                        }
                     }
                     else
-                    {
                         PreviousMenu.Add(p);
-                        //Debug.Log("Adding first item" + PreviousMenu.Count + " " + p);
-                    }
-                    Debug.Log("Breadcrumb trail: " + PreviousMenu.Count + " = " + PreviousMenu[PreviousMenu.Count - 1]);
                 }
                 UIVisibility[p] = false;
             }
             if (newPanel == PreviousMenu[PreviousMenu.Count - 1])
-            {
-                Debug.Log("We are transitioning to this panel. Removing from breadcrumb " + PreviousMenu[PreviousMenu.Count - 1]);
                 PreviousMenu.RemoveAt(PreviousMenu.Count - 1);
-            }
+
             if (RecordThisPanel == false)
-            {
                 RecordThisPanel = true;
-                if (RemoveLastEntry)
-                {
-                    //RemoveLastEntry = false;
-                    //Debug.Log("Removing " + PreviousMenu[PreviousMenu.Count - 1]);
-                    //PreviousMenu.RemoveAt(PreviousMenu.Count - 1);
-                }
-            }
 
             //set the one we want visible to true
             UIVisibility[newPanel] = true;
@@ -100,17 +84,17 @@ namespace WarMachines
                 if (UIVisibility.TryGetValue(p, out outTest))
                 {
                     if (p == "mainmenu")
+                    {
                         MainMenuPanel.SetActive(outTest);
+                        if (outTest)
+                            DOTween.To(() => XPosition, x => XPosition = x, 0, 1);
+                    }
                     else if (p == "vehiclemodmenu")
                         VehicleModPanel.SetActive(outTest);
                     else if (p == "arenaselectmenu")
                         ArenaSelectPanel.SetActive(outTest);
-                    else if (p == "singleplayermenu")
-                    {
-                        SinglePlayerPanel.SetActive(outTest);
-                        if(outTest)
-                            DOTween.To(() => XPosition, x => XPosition = x, 0, 1);
-                    }
+                    else if (p == "startmenu")
+                        StartMenuPanel.SetActive(outTest);
                     else if (p == "twoplayermenu")
                         TwoPlayerPanel.SetActive(outTest);
                     else if (p == "multiplayermenu")
@@ -148,16 +132,16 @@ namespace WarMachines
         public void CreateSaveProfile()
         {
             //string LastVisitedMenu = PreviousMenu[PreviousMenu.Count - 1];
-            RecordThisPanel = false;
-            SwitchPanel("startgamemenu");
+            //RecordThisPanel = false;
+            SwitchPanel("mainmenu");
             //TODO add profile creation here for save files
         }
 
         public void LoadSaveProfile()
         {
             //string LastVisitedMenu = PreviousMenu[PreviousMenu.Count - 1];
-            RecordThisPanel = false;
-            SwitchPanel("startgamemenu");
+            //RecordThisPanel = false;
+            SwitchPanel("mainmenu");
             //TODO add profile loading here for save files
         }
 
@@ -173,24 +157,28 @@ namespace WarMachines
         public void StartGame()
         {
             Debug.Log("Loading level");
+            SceneManager.LoadScene(1);
         }
 
         void Awake()
         {
             DOTween.Init();
+            player = ReInput.players.GetPlayer(playerId);
         }
 
         // Use this for initialization
         void Start()
         {
-            PreviousMenu.Add("mainmenu");
-            SwitchPanel("mainmenu");
+            PreviousMenu.Add("startmenu");
+            SwitchPanel("startmenu");
         }
 
         // Update is called once per frame
         void Update()
         {
             MenuRoot.anchoredPosition = new Vector2(XPosition, 0);
+            if (player.GetButtonDown("BButton") && canGoBack)
+                GoBack();
         }
     }
 }
