@@ -2,40 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEditor;
 
 namespace WarMachines
 {
+    [System.Serializable]
+    public class PartMeshes : System.Object
+    {
+        [SerializeField]
+        public string PartName;
+        [SerializeField]
+        public GameObject PartMesh;
+    }
+
     public class PartsDictionary : MonoBehaviour
     {
-        public enum Chassis
-        {
-            ChassisMk1,
-            ChassisMk2
-        }
-
-        public enum Battery
-        {
-            None,
-            BatteryMk1
-        }
-
-        public enum Motor
-        {
-            None,
-            MotorMk1
-        }
-
-        public enum Wheel
-        {
-            WheelMk1
-        }
-
-        public enum Armor
-        {
-            None,
-            ArmorMk1
-        }
-
         /** Part types. */
         public enum PartType
         {
@@ -87,6 +69,21 @@ namespace WarMachines
             {
                 this.type = type;
             }
+        }
+
+        [SerializeField]
+        public List<PartMeshes> PartMeshes = new List<PartMeshes>();
+
+        public GameObject GetMeshFromID(string ID)
+        {
+            foreach (PartMeshes P in PartMeshes)
+            {
+                if (P.PartName == ID)
+                {
+                    return P.PartMesh;
+                }
+            }
+            return null;
         }
 
         /** The set of all vehicle parts. */

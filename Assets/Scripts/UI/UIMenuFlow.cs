@@ -29,7 +29,6 @@ namespace WarMachines
         private List<string> PreviousMenu = new List<string>();
         private string ProfileInputString = "player1profile";
         private bool RecordThisPanel = true;
-        private bool RemoveLastEntry = false;
         private float XPosition = 0;
         private Player player;
 
@@ -117,10 +116,8 @@ namespace WarMachines
 
         public void GoBack()
         {
-            //get last visited menu
             RecordThisPanel = false;
             string LastVisitedMenu = PreviousMenu[PreviousMenu.Count - 1];
-            //go to last visited menu
             SwitchPanel(LastVisitedMenu);
         }
 
@@ -131,25 +128,19 @@ namespace WarMachines
 
         public void CreateSaveProfile()
         {
-            //string LastVisitedMenu = PreviousMenu[PreviousMenu.Count - 1];
-            //RecordThisPanel = false;
             SwitchPanel("mainmenu");
             //TODO add profile creation here for save files
         }
 
         public void LoadSaveProfile()
         {
-            //string LastVisitedMenu = PreviousMenu[PreviousMenu.Count - 1];
-            //RecordThisPanel = false;
             SwitchPanel("mainmenu");
             //TODO add profile loading here for save files
         }
 
         public void ChooseArenaMenu()
         {
-            //string LastVisitedMenu = PreviousMenu[PreviousMenu.Count - 1];
             RecordThisPanel = false;
-            RemoveLastEntry = true;
             SwitchPanel("startgamemenu");
             //TODO add arena selection logic here
         }
