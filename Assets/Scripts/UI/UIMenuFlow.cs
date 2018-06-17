@@ -47,6 +47,10 @@ namespace WarMachines
             {"workinprogressmenu", false },
         };
 
+        /// <summary>
+        /// Changes UI panel visibility to the required panel (newPanel).
+        /// </summary>
+        /// <param name="newPanel"></param>
         public void SwitchPanel(string newPanel)
         {
             bool outTest;
@@ -114,6 +118,9 @@ namespace WarMachines
             }
         }
 
+        /// <summary>
+        /// Allows the user to go back to previous panel
+        /// </summary>
         public void GoBack()
         {
             RecordThisPanel = false;
@@ -157,14 +164,12 @@ namespace WarMachines
             player = ReInput.players.GetPlayer(playerId);
         }
 
-        // Use this for initialization
         void Start()
         {
             PreviousMenu.Add("startmenu");
             SwitchPanel("startmenu");
         }
 
-        // Update is called once per frame
         void Update()
         {
             MenuRoot.anchoredPosition = new Vector2(XPosition, 0);

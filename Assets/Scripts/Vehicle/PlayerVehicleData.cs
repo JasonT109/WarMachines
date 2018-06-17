@@ -23,10 +23,9 @@ namespace WarMachines
             public string myTopWeapon = "";
         }
 
+        [Tooltip("This list must be in order of player ID")]
         public PlayerData[] PlayersData;
-
-        //public PlayerData Player1Data = new PlayerData();
-        //public PlayerData Player2Data = new PlayerData();
+        public List<GameObject> Players;
 
         /// <summary>
         /// Sets the vehicles parts as stored in the PlayersData array
@@ -34,7 +33,6 @@ namespace WarMachines
         private void SetVehicleParts()
         {
             //Debug.Log("Setting vehicle parts");
-            List<GameObject> Players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
             foreach (GameObject P in Players)
             {
                 SimpleCarController S = P.GetComponent<SimpleCarController>();
@@ -56,8 +54,79 @@ namespace WarMachines
             }
         }
 
-        void Awake()
+        /// <summary>
+        /// Sets vehicle data that is stored persistently in the scene.
+        /// </summary>
+        /// <param name="PlayerID"></param>
+        /// <param name="Slot"></param>
+        /// <param name="Value"></param>
+        public void SetVehicleData(int PlayerID, VehicleMods.VehicleSlots Slot, string Value)
         {
+            foreach (GameObject P in Players)
+            {
+                SimpleCarController S = P.GetComponent<SimpleCarController>();
+                VehicleMods V = P.GetComponent<VehicleMods>();
+
+                if (S.playerId == PlayerID)
+                {
+                    switch (Slot)
+                    {
+                        case VehicleMods.VehicleSlots.ChassisSlot:
+                            PlayersData[PlayerID].myChassis = Value;
+                            V.MyChassis = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.FrontMotorSlot:
+                            PlayersData[PlayerID].myFrontMotor = Value;
+                            V.MyFrontMotor = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.RearMotorSlot:
+                            PlayersData[PlayerID].myRearMotor = Value;
+                            V.MyRearMotor = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.FrontWheelsSlot:
+                            PlayersData[PlayerID].myFrontWheels = Value;
+                            V.MyFrontWheels = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.RearWheelsSlot:
+                            PlayersData[PlayerID].myRearWheels = Value;
+                            V.MyRearWheels = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.BatterySlot:
+                            PlayersData[PlayerID].myBattery = Value;
+                            V.MyBattery = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.ArmorSlot:
+                            PlayersData[PlayerID].myArmor = Value;
+                            V.MyArmor = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.FrontWeaponSlot:
+                            PlayersData[PlayerID].myFrontWeapon = Value;
+                            V.MyFrontWeapon = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.RearWeaponSlot:
+                            PlayersData[PlayerID].myRearWeapon = Value;
+                            V.MyRearWeapon = Value;
+                            break;
+                        case VehicleMods.VehicleSlots.TopWeaponSlot:
+                            PlayersData[PlayerID].myTopWeapon = Value;
+                            V.MyTopWeapon = Value;
+                            break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of players in the scene and stores them to a GameObject list.
+        /// </summary>
+        private void GetPlayers()
+        {
+            Players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        }
+
+        void Start()
+        {
+            GetPlayers();
             StartCoroutine(Wait());
         }
 
@@ -69,6 +138,7 @@ namespace WarMachines
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            GetPlayers();
             StartCoroutine(Wait());
         }
 

@@ -31,8 +31,11 @@ namespace WarMachines
         private Player player;
         private Rigidbody rb;
 
-        // finds the corresponding visual wheel
-        // correctly applies the transform
+        /// <summary>
+        /// Sets the position and rotation of the visual mesh to match the wheel collider
+        /// </summary>
+        /// <param name="collider"></param>
+        /// <param name="wheelMesh"></param>
         public void ApplyLocalPositionToVisuals(WheelCollider collider, Transform wheelMesh)
         {
             Vector3 position;

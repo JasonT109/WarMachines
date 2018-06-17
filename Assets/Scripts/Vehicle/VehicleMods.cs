@@ -31,6 +31,20 @@ namespace WarMachines
         private string myTopWeapon = "";
         private PartsDictionary PM;
 
+        public enum VehicleSlots
+        {
+            ChassisSlot,
+            FrontMotorSlot,
+            RearMotorSlot,
+            FrontWheelsSlot,
+            RearWheelsSlot,
+            BatterySlot,
+            ArmorSlot,
+            FrontWeaponSlot,
+            RearWeaponSlot,
+            TopWeaponSlot
+        }
+
         public string MyChassis
         {
             get
@@ -188,7 +202,15 @@ namespace WarMachines
             {
                 //if we have an old part in this slot, remove it
                 if(Slot.childCount > 0)
-                    Destroy(Slot.GetChild(0).gameObject);
+                {
+                    List<Transform> Children = new List<Transform>();
+                    for (int i = 0; i < Slot.childCount; i++)
+                    {
+                        Children.Add(Slot.GetChild(i));
+                    }
+                    foreach (Transform T in Children)
+                        Destroy(T.gameObject);
+                }
 
                 GameObject NewPart = Instantiate(PartMesh, Slot);
             }

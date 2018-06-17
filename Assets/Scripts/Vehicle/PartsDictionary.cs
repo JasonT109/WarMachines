@@ -45,6 +45,7 @@ namespace WarMachines
         /** Configuration data for a part. */
         public class PartInfo
         {
+            public string id;
             public PartType type;
             public Slot slot;
             public float weight;
@@ -108,16 +109,16 @@ namespace WarMachines
         /** Details of each vehicle part. */
         private static readonly Dictionary<string, PartInfo> PartData = new Dictionary<string, PartInfo>
         {
-            {"chassismk1", new PartInfo {type = PartType.Chassis, slot = Slot.ChassisSlot, partName = "Rebo Machines Chassis Mk1", description = "A simple yet robust entry level platform.", weight = 60} },
-            {"chassismk2", new PartInfo {type = PartType.Chassis, slot = Slot.ChassisSlot, partName = "Rebo Machines Chassis Mk2", description = "Low ride clearance for stability, protection and style.", weight = 60} },
-            {"batterymk1", new PartInfo {type = PartType.Battery, slot = Slot.BatterySlot, partName = "Inerton 4000a", description = "Enough juice to get you going.", weight = 15} },
-            {"motormk1", new PartInfo {type = PartType.Motor, slot = Slot.MotorSlot, partName = "Reko P1X", description = "Now we're torquing!", weight = 8, torque = 15, wheelIndependant = false} },
-            {"wheelmk1", new PartInfo {type = PartType.Wheel, slot = Slot.WheelSlot, partName = "RipperTech Screecha", description = "Squeely good wheels.", weight = 5} },
-            {"armormk1", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Powershell BetaBox", description = "Baby, don't hurt me! (no more)", weight = 5, strength = 5} },
-            {"armormk2", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Powershell HalfShell", description = "Hit me one more time!", weight = 5, strength = 5} },
-            {"armormk3", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk3", description = "More boink for your buck!", weight = 5, strength = 5} },
-            {"armormk4", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk4", description = "Thicker, slicker and sicker!", weight = 5, strength = 5} },
-            {"armormk5", new PartInfo {type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Carbyde Chrysallis 5",description = "Impenetrable. Possibly.", weight = 5, strength = 5} },
+            {"chassismk1", new PartInfo {id = "chassismk1", type = PartType.Chassis, slot = Slot.ChassisSlot, partName = "Rebo Machines Chassis Mk1", description = "A simple yet robust entry level platform.", weight = 60} },
+            {"chassismk2", new PartInfo {id = "chassismk2", type = PartType.Chassis, slot = Slot.ChassisSlot, partName = "Rebo Machines Chassis Mk2", description = "Low ride clearance for stability, protection and style.", weight = 60} },
+            {"batterymk1", new PartInfo {id = "batterymk1", type = PartType.Battery, slot = Slot.BatterySlot, partName = "Inerton 4000a", description = "Enough juice to get you going.", weight = 15} },
+            {"motormk1", new PartInfo {id = "motormk1", type = PartType.Motor, slot = Slot.MotorSlot, partName = "Reko P1X", description = "Now we're torquing!", weight = 8, torque = 15, wheelIndependant = false} },
+            {"wheelmk1", new PartInfo {id = "wheelmk1", type = PartType.Wheel, slot = Slot.WheelSlot, partName = "RipperTech Screecha", description = "Squeely good wheels.", weight = 5} },
+            {"armormk1", new PartInfo {id = "armormk1", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Powershell BetaBox", description = "Baby, don't hurt me! (no more)", weight = 5, strength = 5} },
+            {"armormk2", new PartInfo {id = "armormk2", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Powershell HalfShell", description = "Hit me one more time!", weight = 5, strength = 5} },
+            {"armormk3", new PartInfo {id = "armormk3", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk3", description = "More boink for your buck!", weight = 5, strength = 5} },
+            {"armormk4", new PartInfo {id = "armormk4", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk4", description = "Thicker, slicker and sicker!", weight = 5, strength = 5} },
+            {"armormk5", new PartInfo {id = "armormk5", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Carbyde Chrysallis 5",description = "Impenetrable. Possibly.", weight = 5, strength = 5} },
         };
 
         public static List<PartInfo> GetMyPartsOfType(PartType partType, int PlayerID)

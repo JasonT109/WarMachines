@@ -16,25 +16,34 @@ namespace WarMachines
         public Text DescriptionText;
 
         private Player player;
-        private int NumCategories = 5;
+        private int NumCategories = 7;
         private int CurrentCategory = 1;
-        private string[] Categories = { "None", "Chassis", "Battery", "Motor", "Wheels", "Armor"};
+        private string[] Categories = { "None", "Chassis", "Battery", "Front Motor", "Rear Motor", "Front Wheels", "Rear Wheels", "Armor" };
         private List<PartsDictionary.PartInfo> ChassisParts;
         private int ChassisCurrentPart = 1;
         private List<PartsDictionary.PartInfo> BatteryParts;
         private int BatteryCurrentPart = 1;
-        private List<PartsDictionary.PartInfo> MotorParts;
-        private int MotorCurrentPart = 1;
-        private List<PartsDictionary.PartInfo> WheelParts;
-        private int WheelCurrentPart = 1;
+        private List<PartsDictionary.PartInfo> FrontMotorParts;
+        private int FrontMotorCurrentPart = 1;
+        private List<PartsDictionary.PartInfo> RearMotorParts;
+        private int RearMotorCurrentPart = 1;
+        private List<PartsDictionary.PartInfo> FrontWheelParts;
+        private int FrontWheelCurrentPart = 1;
+        private List<PartsDictionary.PartInfo> RearWheelParts;
+        private int RearWheelCurrentPart = 1;
         private List<PartsDictionary.PartInfo> ArmorParts;
         private int ArmorCurrentPart = 1;
+        private PlayerVehicleData PVData;
 
         public void Awake()
         {
             player = ReInput.players.GetPlayer(playerId);
         }
 
+        /// <summary>
+        /// Switches which category is active in UI. Direction should be -1||1
+        /// </summary>
+        /// <param name="Direction"></param>
         public void SwitchModule(int Direction)
         {
             CurrentCategory += Direction;
@@ -46,6 +55,10 @@ namespace WarMachines
             UpdateUI();
         }
 
+        /// <summary>
+        /// Switches which part is active in UI. Direction should be -1||1
+        /// </summary>
+        /// <param name="Direction"></param>
         public void SwitchPart(int Direction)
         {
             switch (CurrentCategory)
@@ -65,20 +78,34 @@ namespace WarMachines
                         BatteryCurrentPart = 1;
                     break;
                 case 3:
-                    MotorCurrentPart += Direction;
-                    if (MotorCurrentPart < 1)
-                        MotorCurrentPart = MotorParts.Count;
-                    if (MotorCurrentPart > MotorParts.Count)
-                        MotorCurrentPart = 1;
+                    FrontMotorCurrentPart += Direction;
+                    if (FrontMotorCurrentPart < 1)
+                        FrontMotorCurrentPart = FrontMotorParts.Count;
+                    if (FrontMotorCurrentPart > FrontMotorParts.Count)
+                        FrontMotorCurrentPart = 1;
                     break;
                 case 4:
-                    WheelCurrentPart += Direction;
-                    if (WheelCurrentPart < 1)
-                        WheelCurrentPart = WheelParts.Count;
-                    if (WheelCurrentPart > WheelParts.Count)
-                        WheelCurrentPart = 1;
+                    RearMotorCurrentPart += Direction;
+                    if (RearMotorCurrentPart < 1)
+                        RearMotorCurrentPart = RearMotorParts.Count;
+                    if (RearMotorCurrentPart > RearMotorParts.Count)
+                        RearMotorCurrentPart = 1;
                     break;
                 case 5:
+                    FrontWheelCurrentPart += Direction;
+                    if (FrontWheelCurrentPart < 1)
+                        FrontWheelCurrentPart = FrontWheelParts.Count;
+                    if (FrontWheelCurrentPart > FrontWheelParts.Count)
+                        FrontWheelCurrentPart = 1;
+                    break;
+                case 6:
+                    RearWheelCurrentPart += Direction;
+                    if (RearWheelCurrentPart < 1)
+                        RearWheelCurrentPart = RearWheelParts.Count;
+                    if (RearWheelCurrentPart > RearWheelParts.Count)
+                        RearWheelCurrentPart = 1;
+                    break;
+                case 7:
                     ArmorCurrentPart += Direction;
                     if (ArmorCurrentPart < 1)
                         ArmorCurrentPart = ArmorParts.Count;
@@ -89,6 +116,9 @@ namespace WarMachines
             UpdateUI();
         }
 
+        /// <summary>
+        /// Updates Part text and description in UI. Tells Player vehicle data to update visual mesh in scene.
+        /// </summary>
         private void UpdateUI()
         {
             CategoryText.text = Categories[CurrentCategory];
@@ -97,38 +127,54 @@ namespace WarMachines
                 case 1:
                     PartText.text = ChassisParts[ChassisCurrentPart - 1].partName;
                     DescriptionText.text = ChassisParts[ChassisCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.ChassisSlot, ChassisParts[ChassisCurrentPart - 1].id);
                     break;
                 case 2:
                     PartText.text = BatteryParts[BatteryCurrentPart - 1].partName;
                     DescriptionText.text = BatteryParts[BatteryCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.BatterySlot, BatteryParts[BatteryCurrentPart - 1].id);
                     break;
                 case 3:
-                    PartText.text = MotorParts[MotorCurrentPart - 1].partName;
-                    DescriptionText.text = MotorParts[MotorCurrentPart - 1].description;
+                    PartText.text = FrontMotorParts[FrontMotorCurrentPart - 1].partName;
+                    DescriptionText.text = FrontMotorParts[FrontMotorCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.FrontMotorSlot, FrontMotorParts[FrontMotorCurrentPart - 1].id);
                     break;
                 case 4:
-                    PartText.text = WheelParts[WheelCurrentPart - 1].partName;
-                    DescriptionText.text = WheelParts[WheelCurrentPart - 1].description;
+                    PartText.text = RearMotorParts[RearMotorCurrentPart - 1].partName;
+                    DescriptionText.text = RearMotorParts[RearMotorCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.RearMotorSlot, RearMotorParts[RearMotorCurrentPart - 1].id);
                     break;
                 case 5:
+                    PartText.text = FrontWheelParts[FrontWheelCurrentPart - 1].partName;
+                    DescriptionText.text = FrontWheelParts[FrontWheelCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.FrontWheelsSlot, FrontWheelParts[FrontWheelCurrentPart - 1].id);
+                    break;
+                case 6:
+                    PartText.text = RearWheelParts[RearWheelCurrentPart - 1].partName;
+                    DescriptionText.text = RearWheelParts[RearWheelCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.RearWheelsSlot, RearWheelParts[RearWheelCurrentPart - 1].id);
+                    break;
+                case 7:
                     PartText.text = ArmorParts[ArmorCurrentPart - 1].partName;
                     DescriptionText.text = ArmorParts[ArmorCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.ArmorSlot, ArmorParts[ArmorCurrentPart - 1].id);
                     break;
             }
         }
 
-        // Use this for initialization
         void Start()
         {
+            PVData = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerVehicleData>();
             ChassisParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Chassis, playerId);
             BatteryParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Battery, playerId);
-            MotorParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Motor, playerId);
-            WheelParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Wheel, playerId);
+            FrontMotorParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Motor, playerId);
+            RearMotorParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Motor, playerId);
+            FrontWheelParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Wheel, playerId);
+            RearWheelParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Wheel, playerId);
             ArmorParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Armor, playerId);
             UpdateUI();
         }
 
-        // Update is called once per frame
         void Update()
         {
             //TODO only update UI belonging to this player
