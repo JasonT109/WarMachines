@@ -17,6 +17,8 @@ namespace WarMachines
         public bool steering;
         public bool steeringInverted;
         public float wheelSize = 1;
+        public float wheelOffsetLeft = -0.02f;
+        public float wheelOffsetRight = 0.02f;
     }
 
     public class SimpleCarController : MonoBehaviour
@@ -36,13 +38,27 @@ namespace WarMachines
         /// </summary>
         /// <param name="collider"></param>
         /// <param name="wheelMesh"></param>
-        public void ApplyLocalPositionToVisuals(WheelCollider collider, Transform wheelMesh)
+        public void ApplyLocalPositionToVisuals(WheelCollider collider, Transform wheelMesh, float wheelOffset)
         {
             Vector3 position;
             Quaternion rotation;
+
+            //get world postion and rotation from collider
             collider.GetWorldPose(out position, out rotation);
 
+            //set wheel position in world space
             wheelMesh.position = position;
+
+            //convert world space to local space
+            Vector3 LocalPosition = wheelMesh.InverseTransformPoint(wheelMesh.transform.position);
+
+            //add wheel offset
+            LocalPosition = new Vector3(LocalPosition.x + wheelOffset, LocalPosition.y, LocalPosition.z);
+
+            //re-apply position in world space
+            wheelMesh.position = wheelMesh.TransformPoint(LocalPosition);
+
+            //apply rotation
             wheelMesh.rotation = rotation;
         }
 
@@ -88,8 +104,8 @@ namespace WarMachines
                         axleInfo.leftWheel.motorTorque = motor;
                         axleInfo.rightWheel.motorTorque = motor;
                     }
-                    ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visualWheelLeft);
-                    ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visualWheelRight);
+                    ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visualWheelLeft, axleInfo.wheelOffsetLeft);
+                    ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visualWheelRight, axleInfo.wheelOffsetRight);
                 }
             }
         }

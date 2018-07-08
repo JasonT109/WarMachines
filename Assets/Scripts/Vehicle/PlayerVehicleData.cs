@@ -49,6 +49,7 @@ namespace WarMachines
                         V.MyFrontWheels = PlayersData[i].myFrontWheels;
                         V.MyRearWheels = PlayersData[i].myRearWheels;
                         V.MyArmor = PlayersData[i].myArmor;
+                        V.MyFrontWeapon = PlayersData[i].myFrontWeapon;
                     }
                 }
             }

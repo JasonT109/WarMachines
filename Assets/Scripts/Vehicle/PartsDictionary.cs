@@ -104,6 +104,8 @@ namespace WarMachines
             "armormk3",
             "armormk4",
             "armormk5",
+            "weaponbullmk1",
+            "weaponscorpionmk1"
         };
 
         /** Details of each vehicle part. */
@@ -119,6 +121,8 @@ namespace WarMachines
             {"armormk3", new PartInfo {id = "armormk3", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk3", description = "More boink for your buck!", weight = 5, strength = 5} },
             {"armormk4", new PartInfo {id = "armormk4", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Rebo Machines PlateMatix Mk4", description = "Thicker, slicker and sicker!", weight = 5, strength = 5} },
             {"armormk5", new PartInfo {id = "armormk5", type = PartType.Armor, slot = Slot.ArmorSlot, partName = "Carbyde Chrysallis 5",description = "Impenetrable. Possibly.", weight = 5, strength = 5} },
+            {"weaponbullmk1", new PartInfo {id = "weaponbullmk1", type = PartType.Weapon, slot = Slot.WeaponFrontSlot, partName = "JBS Bulldozer",description = "Outta the way!", weight = 5, strength = 5} },
+            {"weaponscorpionmk1", new PartInfo {id = "weaponscorpionmk1", type = PartType.Weapon, slot = Slot.WeaponFrontSlot, partName = "Scorpion",description = "Careful, I sting!", weight = 5, strength = 5} },
         };
 
         public static List<PartInfo> GetMyPartsOfType(PartType partType, int PlayerID)

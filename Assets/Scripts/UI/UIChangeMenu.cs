@@ -11,13 +11,21 @@ namespace WarMachines
         public Button FirstSelectable;
         public UIMenuFlow UIMenuFlow;
         public bool canGoBack = true;
-        private UIButtonFeedback uibf;
+        private UIButtonFeedback ButtonFeedback;
+
+        public void EnableMe()
+        {
+            FirstSelectable.Select();
+            ButtonFeedback = FirstSelectable.GetComponent<UIButtonFeedback>();
+            ButtonFeedback.OnFirstSelect();
+            UIMenuFlow.canGoBack = canGoBack;
+        }
 
         void OnEnable()
         {
             FirstSelectable.Select();
-            uibf = FirstSelectable.GetComponent<UIButtonFeedback>();
-            uibf.OnFirstSelect();
+            ButtonFeedback = FirstSelectable.GetComponent<UIButtonFeedback>();
+            ButtonFeedback.OnFirstSelect();
             UIMenuFlow.canGoBack = canGoBack;
         }
     }

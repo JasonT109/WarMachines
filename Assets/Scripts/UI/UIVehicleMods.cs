@@ -16,9 +16,9 @@ namespace WarMachines
         public Text DescriptionText;
 
         private Player player;
-        private int NumCategories = 7;
+        private int NumCategories = 8;
         private int CurrentCategory = 1;
-        private string[] Categories = { "None", "Chassis", "Battery", "Front Motor", "Rear Motor", "Front Wheels", "Rear Wheels", "Armor" };
+        private string[] Categories = { "None", "Chassis", "Battery", "Front Motor", "Rear Motor", "Front Wheels", "Rear Wheels", "Armor", "Front Weapon" };
         private List<PartsDictionary.PartInfo> ChassisParts;
         private int ChassisCurrentPart = 1;
         private List<PartsDictionary.PartInfo> BatteryParts;
@@ -33,6 +33,8 @@ namespace WarMachines
         private int RearWheelCurrentPart = 1;
         private List<PartsDictionary.PartInfo> ArmorParts;
         private int ArmorCurrentPart = 1;
+        private List<PartsDictionary.PartInfo> FrontWeaponParts;
+        private int FrontWeaponCurrentPart = 1;
         private PlayerVehicleData PVData;
 
         public void Awake()
@@ -112,6 +114,13 @@ namespace WarMachines
                     if (ArmorCurrentPart > ArmorParts.Count)
                         ArmorCurrentPart = 1;
                     break;
+                case 8:
+                    FrontWeaponCurrentPart += Direction;
+                    if (FrontWeaponCurrentPart < 1)
+                        FrontWeaponCurrentPart = FrontWeaponParts.Count;
+                    if (FrontWeaponCurrentPart > FrontWeaponParts.Count)
+                        FrontWeaponCurrentPart = 1;
+                    break;
             }
             UpdateUI();
         }
@@ -159,6 +168,11 @@ namespace WarMachines
                     DescriptionText.text = ArmorParts[ArmorCurrentPart - 1].description;
                     PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.ArmorSlot, ArmorParts[ArmorCurrentPart - 1].id);
                     break;
+                case 8:
+                    PartText.text = FrontWeaponParts[FrontWeaponCurrentPart - 1].partName;
+                    DescriptionText.text = FrontWeaponParts[FrontWeaponCurrentPart - 1].description;
+                    PVData.SetVehicleData(playerId, VehicleMods.VehicleSlots.FrontWeaponSlot, FrontWeaponParts[FrontWeaponCurrentPart - 1].id);
+                    break;
             }
         }
 
@@ -172,6 +186,7 @@ namespace WarMachines
             FrontWheelParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Wheel, playerId);
             RearWheelParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Wheel, playerId);
             ArmorParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Armor, playerId);
+            FrontWeaponParts = PartsDictionary.GetMyPartsOfType(PartsDictionary.PartType.Weapon, playerId);
             UpdateUI();
         }
 

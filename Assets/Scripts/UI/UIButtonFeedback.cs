@@ -6,17 +6,17 @@ using UnityEngine.EventSystems;// Required when using Event data.
 public class UIButtonFeedback : MonoBehaviour, IDeselectHandler, ISelectHandler //This Interface is required to receive OnDeselect callbacks.
 {
     public Image InteractIcon;
-    public bool InitialState = false;
-    public bool ignored = false;
+    public bool IconInitState = false;
+    public bool IconAlwaysOn = false;
 
     void Start()
     {
-        SetIconState(InitialState);
+        SetIconState(IconInitState);
     }
 
     void OnEnable()
     {
-        SetIconState(InitialState);
+        SetIconState(IconInitState);
     }
 
     public void OnFirstSelect()
@@ -35,7 +35,7 @@ public class UIButtonFeedback : MonoBehaviour, IDeselectHandler, ISelectHandler 
     {
         if (InteractIcon == null)
             GetIcon();
-        if (InteractIcon != null && !ignored)
+        if (InteractIcon != null && !IconAlwaysOn)
             InteractIcon.gameObject.SetActive(state);
     }
 

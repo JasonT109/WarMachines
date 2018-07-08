@@ -9,6 +9,7 @@ namespace WarMachines
 {
     public class UIMenuFlow : MonoBehaviour
     {
+        public bool QuickStart = false;
         public int playerId = 0;
         public bool canGoBack = true;
         //Main Panels
@@ -25,12 +26,14 @@ namespace WarMachines
         public GameObject WorkInProgressPanel;
         public float LeftPosition = -547f;
         public float RightPosition = 547f;
+        public UILevelFader LevelFader;
 
         private List<string> PreviousMenu = new List<string>();
         private string ProfileInputString = "player1profile";
         private bool RecordThisPanel = true;
         private float XPosition = 0;
         private Player player;
+        private int LevelToLoad = 1;
 
         private Dictionary<string, bool> UIVisibility = new Dictionary<string, bool>
         {
@@ -155,13 +158,16 @@ namespace WarMachines
         public void StartGame()
         {
             Debug.Log("Loading level");
-            SceneManager.LoadScene(1);
+            LevelFader.FadeToLevel(LevelToLoad);
         }
 
         void Awake()
         {
             DOTween.Init();
             player = ReInput.players.GetPlayer(playerId);
+
+            if (QuickStart)
+                StartGame();
         }
 
         void Start()
