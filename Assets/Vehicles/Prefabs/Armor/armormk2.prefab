@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 33385937502089260}
   - component: {fileID: 23550636164757562}
   - component: {fileID: 65234908242290814}
+  - component: {fileID: 114623314146541208}
   m_Layer: 0
   m_Name: AmorLid001
   m_TagString: Untagged
@@ -89,6 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4419378428163394}
   - component: {fileID: 65106956563595444}
+  - component: {fileID: 114330233330331524}
   m_Layer: 0
   m_Name: ArmorFront001
   m_TagString: Untagged
@@ -122,6 +124,7 @@ GameObject:
   - component: {fileID: 4400299912822530}
   - component: {fileID: 33628098936216214}
   - component: {fileID: 23040551909118296}
+  - component: {fileID: 114826705727683154}
   m_Layer: 0
   m_Name: ArmorBase001
   m_TagString: Untagged
@@ -155,6 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4178443968716342}
   - component: {fileID: 65151642807467556}
+  - component: {fileID: 114667688815725300}
   m_Layer: 0
   m_Name: ArmorBack001
   m_TagString: Untagged
@@ -171,6 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4171867355805984}
   - component: {fileID: 65133889914465182}
+  - component: {fileID: 114703216486075512}
   m_Layer: 0
   m_Name: ArmorRight001
   m_TagString: Untagged
@@ -187,6 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4695092609212324}
   - component: {fileID: 65578204284106674}
+  - component: {fileID: 114872454801852906}
   m_Layer: 0
   m_Name: ArmorLeft001
   m_TagString: Untagged
@@ -659,6 +665,102 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0025, y: 0.14473166, z: 0.45}
   m_Center: {x: -0.009, y: 0, z: 0}
+--- !u!114 &114330233330331524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500835802390846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e1677827c40545b141091c15243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 50
+  DamageForceThreshold: 2
+  IsWeapon: 0
+  DamageMultiplier: 1
+  HitVFX: {fileID: 0}
+--- !u!114 &114623314146541208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338588864454552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e1677827c40545b141091c15243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 50
+  DamageForceThreshold: 2
+  IsWeapon: 0
+  DamageMultiplier: 1
+  HitVFX: {fileID: 0}
+--- !u!114 &114667688815725300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771705395887718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e1677827c40545b141091c15243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 50
+  DamageForceThreshold: 2
+  IsWeapon: 0
+  DamageMultiplier: 1
+  HitVFX: {fileID: 0}
+--- !u!114 &114703216486075512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1835743459001886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e1677827c40545b141091c15243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 50
+  DamageForceThreshold: 2
+  IsWeapon: 0
+  DamageMultiplier: 1
+  HitVFX: {fileID: 0}
+--- !u!114 &114826705727683154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595241760460484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e1677827c40545b141091c15243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 50
+  DamageForceThreshold: 2
+  IsWeapon: 0
+  DamageMultiplier: 1
+  HitVFX: {fileID: 0}
+--- !u!114 &114872454801852906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901274668151308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e1677827c40545b141091c15243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 50
+  DamageForceThreshold: 2
+  IsWeapon: 0
+  DamageMultiplier: 1
+  HitVFX: {fileID: 0}
 --- !u!114 &114998572229106412
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -28,14 +28,17 @@ namespace WarMachines
 
         public void FireWeapon()
         {
-            weaponMotor = weaponHinge.motor;
-
-            if (!Firing && !Reseting)
+            if(weaponHinge)
             {
-                Firing = true;
-                CurrentForce = FireForce;
-                CurrentVelocity = FireVelocity;
-                StartCoroutine(ResetWait());
+                weaponMotor = weaponHinge.motor;
+
+                if (!Firing && !Reseting)
+                {
+                    Firing = true;
+                    CurrentForce = FireForce;
+                    CurrentVelocity = FireVelocity;
+                    StartCoroutine(ResetWait());
+                }
             }
         }
 
